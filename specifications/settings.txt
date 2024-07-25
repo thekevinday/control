@@ -1,0 +1,26 @@
+# fss-0002 iki-0000
+#
+# license: open-standard-license-1.0-or-later
+# version 2024/07/02
+#
+# This file (assumed to be named settings.txt) can be more easily read using the following iki_read commands:
+#   iki_read settings.txt +Q -w -W code '"' '"'
+#
+# To read the "Entry Specification" section of this file, use this command sequence:
+#   fss_basic_list_read settings.txt +Q -cn "Settings Specification" | iki_read +Q -w -W code '"' '"'
+#
+
+Settings Specification:
+  The control settings "settings" file follows the FSS-0001 (Extended) format.
+
+  Each Object represents a settings property name.
+  There is only a distinct set of setting property names (see below).
+
+  Each Content represents the values associated with that property.
+  Additional restrictions are applied to each Content depending on each specific Object name (see below).
+
+  Object Names and their respective Content purpose/restrictions\:
+    - name_socket: Must only be a single valid filename, without the directory.
+    - path_socket: Must only be a single valid directory.
+    - path_socket_prefix: Zero or one string representing a file name.
+    - path_socket_suffix: Zero or one string representing a file name.
