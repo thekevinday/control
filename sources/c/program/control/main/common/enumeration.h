@@ -19,23 +19,26 @@ extern "C" {
 /**
  * Codes representing supported actions.
  *
- * freeze:   Perform the freeze controller operation.
- * kexec:    Perform the kexec controller operation (only for init mode).
- * kill:     Perform the kill controller operation.
- * pause:    Perform the pause controller operation.
- * reboot:   Perform the reboot controller operation (only for init mode).
- * reload:   Perform the reload controller operation.
- * rerun:    Perform the rerun controller operation.
- * restart:  Perform the restart controller operation.
- * resume:   Perform the resume controller operation.
- * shutdown: Perform the shutdown controller operation (only for init mode).
- * start:    Perform the start controller operation.
- * stop:     Perform the stop controller operation.
- * thaw:     Perform the thaw controller operation.
+ * control_action_type_*_e:
+ *   - none:     No type set.
+ *   - freeze:   Perform the freeze controller operation.
+ *   - kexec:    Perform the kexec controller operation (only for init mode).
+ *   - kill:     Perform the kill controller operation.
+ *   - pause:    Perform the pause controller operation.
+ *   - reboot:   Perform the reboot controller operation (only for init mode).
+ *   - reload:   Perform the reload controller operation.
+ *   - rerun:    Perform the rerun controller operation.
+ *   - restart:  Perform the restart controller operation.
+ *   - resume:   Perform the resume controller operation.
+ *   - shutdown: Perform the shutdown controller operation (only for init mode).
+ *   - start:    Perform the start controller operation.
+ *   - stop:     Perform the stop controller operation.
+ *   - thaw:     Perform the thaw controller operation.
  */
 #ifndef _di_control_action_type_e_
   enum {
-    control_action_type_freeze_e = 1,
+    control_action_type_none_e = 0,
+    control_action_type_freeze_e,
     control_action_type_kexec_e,
     control_action_type_kill_e,
     control_action_type_pause_e,
@@ -52,33 +55,6 @@ extern "C" {
 #endif // _di_control_action_type_e_
 
 /**
- * Supported payload types.
- *
- * controller: The payload is a controller payload.
- * error:      The payload is an error payload.
- * init:       The payload is an init payload (only available when operating in "init" mode).
- */
-#ifndef _di_control_payload_type_e_
-  enum {
-    control_payload_type_controller_e = 1,
-    control_payload_type_error_e,
-    control_payload_type_init_e,
-  }; // enum
-#endif // _di_control_payload_type_e_
-
-/**
- * A codes repesent different flags associated with a packet.
- *
- * control_packet_flag_*:
- *   - binary:     Designate that the packet is in binary mode (when not set then packet is in string mode).
- *   - endian_big: Designate that the packet is in big endian order (when not set then packet is in little endian order).
- */
-#ifndef _di_control_packet_flag_e_
-  #define control_packet_flag_binary_d     0x80
-  #define control_packet_flag_endian_big_d 0x40
-#endif // _di_control_packet_flag_e_
-
-/**
  * Flags passed to the main function or program.
  *
  * control_main_flag_*_e:
@@ -87,7 +63,7 @@ extern "C" {
  *   - header:                 Enable printing of headers.
  *   - help:                   Print help.
  *   - pipe:                   Use the input pipe.
- *   - return:                 The parameter is specified.
+ *   - return:                 Print a message about the response packet.
  *   - version:                Print version.
  *   - version_copyright_help: A helper flag representing version, copyright, and help flag bits being set.
  */
@@ -104,9 +80,25 @@ extern "C" {
 #endif // _di_control_main_flag_e_
 
 /**
+ * Supported payload types.
+ *
+ * control_payload_type_*_e:
+ *   - controller: The payload is a controller payload.
+ *   - error:      The payload is an error payload.
+ *   - init:       The payload is an init payload (only available when operating in "init" mode).
+ */
+#ifndef _di_control_payload_type_e_
+  enum {
+    control_payload_type_controller_e = 1,
+    control_payload_type_error_e,
+    control_payload_type_init_e,
+  }; // enum
+#endif // _di_control_payload_type_e_
+
+/**
  * The main program parameters.
  */
-#ifndef _di_control_parameter_d_
+#ifndef _di_control_parameter_e_
   enum {
     control_parameter_name_e = f_console_standard_parameter_last_e,
     control_parameter_return_e,
@@ -125,7 +117,7 @@ extern "C" {
     }
 
   #define control_parameter_total_d (f_console_parameter_state_type_total_d + 4)
-#endif // _di_control_parameter_d_
+#endif // _di_control_parameter_e_
 
 /**
  * Flags for fine-tuned print control.

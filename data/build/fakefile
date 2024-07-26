@@ -21,9 +21,9 @@ help:
 
   print
   print The following operations are available\:
-  print "  - context:'notable'help:context:'reset'               Perform the help operation, printing this message."
-  print "  - context:'notable'install:context:'reset'            A helper operation that calls the ./install.sh script for the control program."
-  print "  - context:'notable'main:context:'reset'               Compilation using the build settings mode for the control program (default)."
+  print "  - context:'notable'help:context:'reset'     Perform the help operation, printing this message."
+  print "  - context:'notable'install:context:'reset'  A helper operation that calls the ./install.sh script for the control program."
+  print "  - context:'notable'main:context:'reset'     Compilation using the build settings mode for the control program (default)."
 
   print
   print The context:'notable'install context:'reset'operation supports the context:'notable'work,context:'reset' context:'notable'verbosity,context:'reset' and context:'notable'color context:'reset'parameters.

@@ -27,7 +27,7 @@ extern "C" {
     if (!print || !print->custom) return F_status_set_error(F_output_not);
     if (print->verbosity < f_console_verbosity_debug_e) return F_output_not;
 
-    control_main_t * const main = (control_main_t *) print->custom;
+    control_t * const main = (control_t *) print->custom;
 
     f_file_stream_lock(print->to);
 

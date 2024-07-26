@@ -29,17 +29,6 @@ extern "C" {
  *   F_output_not on success, but no printing is performed.
  *
  *   F_output_not (with error bit) if setting is NULL.
- *
- * @see f_file_stream_flush()
- * @see f_file_stream_lock()
- * @see f_file_stream_unlock()
- * @see f_print_dynamic_raw()
- * @see fl_print_format()
- *
- * @see fll_program_print_help_header()
- * @see fll_program_print_help_option()
- * @see fll_program_print_help_option_standard()
- * @see fll_program_print_help_usage()
  */
 #ifndef _di_control_print_message_help_
   extern f_status_t control_print_message_help(fl_print_t * const print);

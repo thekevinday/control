@@ -69,32 +69,6 @@
 extern "C" {
 #endif
 
-/**
- * Execute main program.
- *
- * If main.signal is non-zero, then this blocks and handles the following signals:
- *   - F_signal_abort
- *   - F_signal_broken_pipe
- *   - F_signal_hangup
- *   - F_signal_interrupt
- *   - F_signal_quit
- *   - F_signal_termination
- *
- * @param main
- *   The main program data and settings.
- *
- *   This alters main.setting.state.status:
- *     F_okay on success.
- *     F_true on success when performing verification and verify passed.
- *     F_false on success when performing verification and verify failed.
- *
- *     F_interrupt (with error bit) on (exit) signal received.
- *     F_parameter (with error bit) if main is NULL or setting is NULL.
- */
-#ifndef _di_control_main_
-  extern void control_main(control_main_t * const main);
-#endif // _di_control_main_
-
 #ifdef __cplusplus
 } // extern "C"
 #endif

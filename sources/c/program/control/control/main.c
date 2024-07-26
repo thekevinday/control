@@ -27,17 +27,49 @@ int main(const int argc, const f_string_t *argv, const f_string_t *envp) {
 
   data.setting.flag |= control_main_flag_interruptible_e;
 
+  data.setting.socket.domain = f_socket_protocol_family_local_e;
+  data.setting.socket.type = f_socket_type_stream_e;
+  data.setting.socket.length = sizeof(struct sockaddr_un);
+
   fll_program_standard_set_up(&data.program);
 
   f_file_umask_get(&data.program.umask);
 
-  {
-    const f_console_arguments_t arguments = macro_f_console_arguments_t_initialize_1(argc, argv, envp);
+  #ifdef _di_thread_support_
+    {
+      const f_console_arguments_t arguments = macro_f_console_arguments_t_initialize_1(argc, argv, envp);
 
-    control_setting_load(arguments, &data);
-  }
+      control_setting_load(arguments, &data);
+    }
 
-  control_process(&data);
+    control_process(&data);
+  #else
+    {
+      f_thread_id_t id_signal;
+
+      memset(&id_signal, 0, sizeof(f_thread_id_t));
+
+      data.setting.state.status = f_thread_create(0, &id_signal, &control_thread_signal, (void *) &data);
+
+      if (F_status_is_error(data.setting.state.status)) {
+        control_print_error(&data.program.error, macro_control_f(f_thread_create));
+      }
+      else {
+        {
+          const f_console_arguments_t arguments = macro_f_console_arguments_t_initialize_1(argc, argv, envp);
+
+          control_setting_load(arguments, &data);
+        }
+
+        if (!control_signal_check(&data)) {
+          control_process(&data);
+        }
+
+        f_thread_cancel(id_signal);
+        f_thread_join(id_signal, 0);
+      }
+    }
+  #endif // _di_thread_support_
 
   control_delete(&data);
 

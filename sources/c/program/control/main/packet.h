@@ -38,7 +38,7 @@ extern "C" {
  * @see f_string_dynamic_append()
  */
 #ifndef _di_control_packet_build_
-  extern void control_packet_build(control_main_t * const main);
+  extern void control_packet_build(control_t * const main);
 #endif // _di_control_packet_build_
 
 /**
@@ -107,7 +107,7 @@ extern "C" {
  * @see fll_fss_basic_list_read()
  */
 #ifndef _di_control_packet_receive_
-  extern void control_packet_receive(control_main_t * const main, control_payload_header_t * const header);
+  extern void control_packet_receive(control_t * const main, control_payload_header_t * const header);
 #endif // _di_control_packet_receive_
 
 /**
@@ -128,7 +128,7 @@ extern "C" {
  *   The control payload packet header data.
  */
 #ifndef _di_control_packet_process_
-  extern void control_packet_process(control_main_t * const main, control_payload_header_t * const header);
+  extern void control_packet_process(control_t * const main, control_payload_header_t * const header);
 #endif // _di_control_packet_process_
 
 /**
@@ -145,7 +145,7 @@ extern "C" {
  * @see f_socket_write()
  */
 #ifndef _di_control_packet_send_
-  extern void control_packet_send(control_main_t * const main);
+  extern void control_packet_send(control_t * const main);
 #endif // _di_control_packet_send_
 
 #ifdef __cplusplus

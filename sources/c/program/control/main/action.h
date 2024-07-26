@@ -56,7 +56,7 @@ extern "C" {
  *     F_parameter (with error bit) on parameter validation/verification failure.
  */
 #ifndef _di_control_action_verify_
-  extern void control_action_verify(control_main_t * const main);
+  extern void control_action_verify(control_t * const main);
 #endif // _di_control_action_verify_
 
 #ifdef __cplusplus

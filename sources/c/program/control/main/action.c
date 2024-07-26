@@ -74,7 +74,7 @@ extern "C" {
 #endif // _di_control_action_type_name_
 
 #ifndef _di_control_action_verify_
-  void control_action_verify(control_main_t * const main) {
+  void control_action_verify(control_t * const main) {
 
     if (!main) return;
 

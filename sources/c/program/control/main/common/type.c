@@ -4,30 +4,30 @@
 extern "C" {
 #endif
 
-#ifndef _di_control_main_delete_
-  void control_main_delete(control_main_t * const main) {
+#ifndef _di_control_delete_
+  void control_delete(control_t * const control) {
 
-    if (!main) return;
+    if (!control) return;
 
-    fll_program_data_delete(&main->program);
-    control_setting_delete(&main->setting);
+    fll_program_data_delete(&control->program);
+    control_setting_delete(&control->setting);
 
-    f_memory_array_resize(0, sizeof(f_char_t), (void **) &main->cache.large.string, &main->cache.large.used, &main->cache.large.size);
-    f_memory_array_resize(0, sizeof(f_char_t), (void **) &main->cache.small.string, &main->cache.small.used, &main->cache.small.size);
-    f_memory_array_resize(0, sizeof(f_char_t), (void **) &main->cache.packet.string, &main->cache.packet.used, &main->cache.packet.size);
+    f_memory_array_resize(0, sizeof(f_char_t), (void **) &control->cache.large.string, &control->cache.large.used, &control->cache.large.size);
+    f_memory_array_resize(0, sizeof(f_char_t), (void **) &control->cache.small.string, &control->cache.small.used, &control->cache.small.size);
+    f_memory_array_resize(0, sizeof(f_char_t), (void **) &control->cache.packet.string, &control->cache.packet.used, &control->cache.packet.size);
 
-    f_memory_array_resize(0, sizeof(f_range_t), (void **) &main->cache.objects.array, &main->cache.objects.used, &main->cache.objects.size);
-    f_memory_arrays_resize(0, sizeof(f_ranges_t), (void **) &main->cache.contents.array, &main->cache.contents.used, &main->cache.contents.size, &f_rangess_delete_callback);
+    f_memory_array_resize(0, sizeof(f_range_t), (void **) &control->cache.objects.array, &control->cache.objects.used, &control->cache.objects.size);
+    f_memory_arrays_resize(0, sizeof(f_ranges_t), (void **) &control->cache.contents.array, &control->cache.contents.used, &control->cache.contents.size, &f_rangess_delete_callback);
 
-    f_memory_array_resize(0, sizeof(f_range_t), (void **) &main->cache.packet_objects.array, &main->cache.packet_objects.used, &main->cache.packet_objects.size);
-    f_memory_arrays_resize(0, sizeof(f_ranges_t), (void **) &main->cache.packet_contents.array, &main->cache.packet_contents.used, &main->cache.packet_contents.size, &f_rangess_delete_callback);
+    f_memory_array_resize(0, sizeof(f_range_t), (void **) &control->cache.packet_objects.array, &control->cache.packet_objects.used, &control->cache.packet_objects.size);
+    f_memory_arrays_resize(0, sizeof(f_ranges_t), (void **) &control->cache.packet_contents.array, &control->cache.packet_contents.used, &control->cache.packet_contents.size, &f_rangess_delete_callback);
 
-    f_memory_array_resize(0, sizeof(f_range_t), (void **) &main->cache.header_objects.array, &main->cache.header_objects.used, &main->cache.header_objects.size);
-    f_memory_arrays_resize(0, sizeof(f_ranges_t), (void **) &main->cache.header_contents.array, &main->cache.header_contents.used, &main->cache.header_contents.size, &f_rangess_delete_callback);
+    f_memory_array_resize(0, sizeof(f_range_t), (void **) &control->cache.header_objects.array, &control->cache.header_objects.used, &control->cache.header_objects.size);
+    f_memory_arrays_resize(0, sizeof(f_ranges_t), (void **) &control->cache.header_contents.array, &control->cache.header_contents.used, &control->cache.header_contents.size, &f_rangess_delete_callback);
 
-    f_memory_array_resize(0, sizeof(f_number_unsigned_t), (void **) &main->cache.delimits.array, &main->cache.delimits.used, &main->cache.delimits.size);
+    f_memory_array_resize(0, sizeof(f_number_unsigned_t), (void **) &control->cache.delimits.array, &control->cache.delimits.used, &control->cache.delimits.size);
   }
-#endif // _di_control_main_delete_
+#endif // _di_control_delete_
 
 #ifndef _di_control_setting_delete_
   void control_setting_delete(control_setting_t * const setting) {

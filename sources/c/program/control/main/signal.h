@@ -45,7 +45,7 @@ extern "C" {
  * @see fll_program_standard_signal_received()
  */
 #ifndef _di_control_signal_check_
-  extern f_status_t control_signal_check(control_main_t * const main);
+  extern f_status_t control_signal_check(control_t * const main);
 #endif // _di_control_signal_check_
 
 /**
@@ -76,7 +76,7 @@ extern "C" {
  * @see f_signal_wait()
  */
 #if !defined(_di_control_signal_handler_) && !defined(_di_thread_support_)
-  extern void control_signal_handler(control_main_t * const main);
+  extern void control_signal_handler(control_t * const main);
 #endif // !defined(_di_control_signal_handler_) && !defined(_di_thread_support_)
 
 #ifdef __cplusplus

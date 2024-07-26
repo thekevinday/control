@@ -5,7 +5,7 @@ extern "C" {
 #endif
 
 #if !defined(_di_control_signal_check_) && defined(_di_thread_support_)
-  f_status_t control_signal_check(control_main_t * const main) {
+  f_status_t control_signal_check(control_t * const main) {
 
     if (!main || main->program.signal.id == -1) return F_false;
 
@@ -26,7 +26,7 @@ extern "C" {
 #endif // !defined(_di_control_signal_check_) && defined(_di_thread_support_)
 
 #if !defined(_di_control_signal_check_) && !defined(_di_thread_support_)
-  f_status_t control_signal_check(control_main_t * const main) {
+  f_status_t control_signal_check(control_t * const main) {
 
     if (!main || main->program.signal.id == -1) return F_false;
 
@@ -43,7 +43,7 @@ extern "C" {
 #endif // !defined(_di_control_signal_check_) && !defined(_di_thread_support_)
 
 #if !defined(_di_control_signal_handler_) && !defined(_di_thread_support_)
-  void control_signal_handler(control_main_t * const main) {
+  void control_signal_handler(control_t * const main) {
 
     if (!main) return;
 

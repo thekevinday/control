@@ -5,7 +5,7 @@ extern "C" {
 #endif
 
 #ifndef _di_control_setting_load_
-  void control_setting_load(const f_console_arguments_t arguments, control_main_t * const main) {
+  void control_setting_load(const f_console_arguments_t arguments, control_t * const main) {
 
     if (!main) return;
 

@@ -10,7 +10,7 @@ extern "C" {
     f_thread_cancel_state_set(PTHREAD_CANCEL_DEFERRED, 0);
 
     if (main) {
-      control_signal_handler((control_main_t *) main);
+      control_signal_handler((control_t *) main);
     }
 
     return 0;

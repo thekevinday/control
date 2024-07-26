@@ -38,7 +38,7 @@ extern "C" {
  * @see fll_program_parameter_process_context()
  */
 #ifndef _di_control_setting_load_
-  extern void control_setting_load(const f_console_arguments_t arguments, control_main_t * const main);
+  extern void control_setting_load(const f_console_arguments_t arguments, control_t * const main);
 #endif // _di_control_setting_load_
 
 #ifdef __cplusplus

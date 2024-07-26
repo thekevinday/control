@@ -9,8 +9,8 @@
  *
  * This is auto-included and should not need to be explicitly included.
  */
-#ifndef _control_main_thread_h
-#define _control_main_thread_h
+#ifndef _control_thread_h
+#define _control_thread_h
 
 /**
  * Thread handler for signals/interrupts.
@@ -26,7 +26,7 @@
  * @param main
  *   The program and settings data.
  *
- *   Must be of type control_main_t.
+ *   Must be of type control_t.
  *
  * @return
  *   0, always.
@@ -43,4 +43,4 @@
 } // extern "C"
 #endif
 
-#endif // _control_main_thread_h
+#endif // _control_thread_h

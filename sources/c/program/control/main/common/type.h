@@ -158,26 +158,27 @@ extern "C" {
  *   - setting: The settings data.
  *   - cache:   The cache data.
  */
-#ifndef _di_control_main_t_
+#ifndef _di_control_t_
   typedef struct {
     fll_program_data_t program;
+
     control_setting_t setting;
     control_cache_t cache;
-  } control_main_t;
+  } control_t;
 
-  #define control_main_t_initialize \
+  #define control_t_initialize \
     { \
       fll_program_data_t_initialize, \
       control_setting_t_initialize, \
       control_cache_t_initialize, \
     }
-#endif // _di_control_main_t_
+#endif // _di_control_t_
 
 /**
- * Deallocate main program data.
+ * Deallocate control data.
  *
- * @param main
- *   The main program data.
+ * @param control
+ *   The control data.
  *
  *   Must not be NULL.
  *
@@ -188,9 +189,9 @@ extern "C" {
  * @see fll_program_data_delete()
  * @see control_setting_delete()
  */
-#ifndef _di_control_main_delete_
-  extern void control_main_delete(control_main_t * const main);
-#endif // _di_control_main_delete_
+#ifndef _di_control_delete_
+  extern void control_delete(control_t * const control);
+#endif // _di_control_delete_
 
 /**
  * Delete the program main setting data.

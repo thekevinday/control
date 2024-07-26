@@ -110,8 +110,12 @@ extern "C" {
 #ifndef _di_control_print_error_packet_response_failure_
   extern f_status_t control_print_error_packet_response_failure(fl_print_t * const print, const control_payload_header_t header, const f_string_static_t string_status);
 #endif // _di_control_print_error_packet_response_failure_
+
+
 /**
- * Print an error message about no actions being provided.
+ * Helper print function for printing the first part of an action message.
+ *
+ * This does not perform any locking.
  *
  * @param print
  *   The output structure to print to.
@@ -124,9 +128,9 @@ extern "C" {
  *
  *   F_output_not (with error bit) if setting is NULL.
  */
-#ifndef _di_control_print_error_parameter_actions_none_
-  extern f_status_t control_print_error_parameter_actions_none(fl_print_t * const print);
-#endif // _di_control_print_error_parameter_actions_none_
+#ifndef _di_control_print_error_parameter_action_message_first_
+  extern f_status_t control_print_error_parameter_action_message_first(fl_print_t * const print, const f_string_static_t action);
+#endif // _di_control_print_error_parameter_action_message_first_
 
 /**
  * Print an error message about the given parameter not matching the known set of controller actions.
@@ -332,6 +336,24 @@ extern "C" {
 #ifndef _di_control_print_error_parameter_action_rule_with_unknown_
   extern f_status_t control_print_error_parameter_action_rule_with_unknown(fl_print_t * const print, const f_string_static_t action, const f_string_static_t with);
 #endif // _di_control_print_error_parameter_action_rule_with_unknown_
+
+/**
+ * Print an error message about no actions being provided.
+ *
+ * @param print
+ *   The output structure to print to.
+ *
+ *   This does not alter print.custom.setting.state.status.
+ *
+ * @return
+ *   F_okay on success.
+ *   F_output_not on success, but no printing is performed.
+ *
+ *   F_output_not (with error bit) if setting is NULL.
+ */
+#ifndef _di_control_print_error_parameter_actions_none_
+  extern f_status_t control_print_error_parameter_actions_none(fl_print_t * const print);
+#endif // _di_control_print_error_parameter_actions_none_
 
 /**
  * Print an error message about the parameter's associated value being an empty string.

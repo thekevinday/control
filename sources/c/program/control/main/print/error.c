@@ -10,7 +10,7 @@ extern "C" {
     if (!print || !print->custom) return F_status_set_error(F_output_not);
     if (print->verbosity < f_console_verbosity_error_e) return F_output_not;
 
-    fll_error_print(print, F_status_set_fine(((control_main_t *) print->custom)->setting.state.status), function, fll_error_file_flag_fallback_e);
+    fll_error_print(print, F_status_set_fine(((control_t *) print->custom)->setting.state.status), function, fll_error_file_flag_fallback_e);
 
     return F_okay;
   }
@@ -22,9 +22,7 @@ extern "C" {
     if (!print || !print->custom) return F_status_set_error(F_output_not);
     if (print->verbosity < f_console_verbosity_error_e) return F_output_not;
 
-    control_main_t * const main = (control_main_t *) print->custom;
-
-    fll_error_file_print(print, F_status_set_fine(main->setting.state.status), function, fll_error_file_flag_fallback_e, name, operation, type);
+    fll_error_file_print(print, F_status_set_fine(((control_t *) print->custom)->setting.state.status), function, fll_error_file_flag_fallback_e, name, operation, type);
 
     return F_okay;
   }
@@ -36,7 +34,7 @@ extern "C" {
     if (!print || !print->custom) return F_status_set_error(F_output_not);
     if (print->verbosity < f_console_verbosity_error_e) return F_output_not;
 
-    control_main_t * const main = (control_main_t *) print->custom;
+    control_t * const main = (control_t *) print->custom;
 
     f_file_stream_lock(print->to);
 
@@ -66,7 +64,7 @@ extern "C" {
     if (!print || !print->custom) return F_status_set_error(F_output_not);
     if (print->verbosity < f_console_verbosity_error_e) return F_output_not;
 
-    control_main_t * const main = (control_main_t *) print->custom;
+    control_t * const main = (control_t *) print->custom;
 
     f_file_stream_lock(print->to);
 
@@ -90,17 +88,18 @@ extern "C" {
   }
 #endif // _di_control_print_error_packet_response_failure_
 
-#ifndef _di_control_print_error_parameter_actions_none_
-  f_status_t control_print_error_parameter_actions_none(fl_print_t * const print) {
+#ifndef _di_control_print_error_parameter_action_message_first_
+  f_status_t control_print_error_parameter_action_message_first(fl_print_t * const print, const f_string_static_t action) {
 
     if (!print) return F_status_set_error(F_output_not);
     if (print->verbosity < f_console_verbosity_error_e) return F_output_not;
 
-    fll_print_format("%[%QNo actions provided.%]%r", print->to, print->set->error, print->prefix, print->set->error, f_string_eol_s);
+    fl_print_format("%[%QThe action parameter '%]", print->to, print->set->error, print->prefix, print->set->error);
+    fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, action, print->set->notable);
 
     return F_okay;
   }
-#endif // _di_control_print_error_parameter_actions_none_
+#endif // _di_control_print_error_parameter_action_message_first_
 
 #ifndef _di_control_print_error_parameter_action_not_
   f_status_t control_print_error_parameter_action_not(fl_print_t * const print, const f_string_static_t action) {
@@ -128,8 +127,8 @@ extern "C" {
 
     f_file_stream_lock(print->to);
 
-    fl_print_format("%[%QThe action parameter '%]", print->to, print->set->error, print->prefix, print->set->error);
-    fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, action, print->set->notable);
+    control_print_error_parameter_action_message_first(print, action);
+
     fl_print_format("%[' a rule base name cannot be an empty string.%]%r", print->to, print->set->error, print->set->error, f_string_eol_s);
 
     f_file_stream_unlock(print->to);
@@ -146,8 +145,8 @@ extern "C" {
 
     f_file_stream_lock(print->to);
 
-    fl_print_format("%[%QThe action parameter '%]", print->to, print->set->error, print->prefix, print->set->error);
-    fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, action, print->set->notable);
+    control_print_error_parameter_action_message_first(print, action);
+
     fl_print_format("%[' a rule directory path cannot be an empty string.%]%r", print->to, print->set->error, print->set->error, f_string_eol_s);
 
     f_file_stream_unlock(print->to);
@@ -164,8 +163,8 @@ extern "C" {
 
     f_file_stream_lock(print->to);
 
-    fl_print_format("%[%QThe action parameter '%]", print->to, print->set->error, print->prefix, print->set->error);
-    fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, action, print->set->notable);
+    control_print_error_parameter_action_message_first(print, action);
+
     fl_print_format("%[' a rule name cannot be an empty string.%]%r", print->to, print->set->error, print->set->error, f_string_eol_s);
 
     f_file_stream_unlock(print->to);
@@ -182,8 +181,8 @@ extern "C" {
 
     f_file_stream_lock(print->to);
 
-    fl_print_format("%[%QThe action parameter '%]", print->to, print->set->error, print->prefix, print->set->error);
-    fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, action, print->set->notable);
+    control_print_error_parameter_action_message_first(print, action);
+
     fl_print_format("%[' requires either a full rule name or a rule directory path along with the rule base name.%]%r", print->to, print->set->error, print->set->error, f_string_eol_s);
 
     f_file_stream_unlock(print->to);
@@ -200,8 +199,8 @@ extern "C" {
 
     f_file_stream_lock(print->to);
 
-    fl_print_format("%[%QThe action parameter '%]", print->to, print->set->error, print->prefix, print->set->error);
-    fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, action, print->set->notable);
+    control_print_error_parameter_action_message_first(print, action);
+
     fl_print_format("%[' has too few arguments.%]%r", print->to, print->set->error, print->set->error, f_string_eol_s);
 
     f_file_stream_unlock(print->to);
@@ -218,8 +217,8 @@ extern "C" {
 
     f_file_stream_lock(print->to);
 
-    fl_print_format("%[%QThe action parameter '%]", print->to, print->set->error, print->prefix, print->set->error);
-    fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, action, print->set->notable);
+    control_print_error_parameter_action_message_first(print, action);
+
     fl_print_format("%[' when used with '%]", print->to, print->set->error, print->set->error, f_string_eol_s);
     fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, with, print->set->notable);
     fl_print_format("%[' has too few arguments.%]%r", print->to, print->set->error, print->set->error, f_string_eol_s);
@@ -238,8 +237,8 @@ extern "C" {
 
     f_file_stream_lock(print->to);
 
-    fl_print_format("%[%QThe action parameter '%]", print->to, print->set->error, print->prefix, print->set->error);
-    fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, action, print->set->notable);
+    control_print_error_parameter_action_message_first(print, action);
+
     fl_print_format("%[' has too many arguments.%]%r", print->to, print->set->error, print->set->error, f_string_eol_s);
 
     f_file_stream_unlock(print->to);
@@ -256,8 +255,8 @@ extern "C" {
 
     f_file_stream_lock(print->to);
 
-    fl_print_format("%[%QThe action parameter '%]", print->to, print->set->error, print->prefix, print->set->error);
-    fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, action, print->set->notable);
+    control_print_error_parameter_action_message_first(print, action);
+
     fl_print_format("%[' when used with '%]", print->to, print->set->error, print->set->error, f_string_eol_s);
     fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, with, print->set->notable);
     fl_print_format("%[' has too many arguments.%]%r", print->to, print->set->error, print->set->error, f_string_eol_s);
@@ -276,8 +275,8 @@ extern "C" {
 
     f_file_stream_lock(print->to);
 
-    fl_print_format("%[%QThe action parameter '%]", print->to, print->set->error, print->prefix, print->set->error);
-    fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, action, print->set->notable);
+    control_print_error_parameter_action_message_first(print, action);
+
     fl_print_format("%[' does not know the argument '%]", print->to, print->set->error, print->set->error, f_string_eol_s);
     fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, with, print->set->notable);
     fl_print_format(f_string_format_sentence_end_quote_s.string, print->to, print->set->error, print->set->error, f_string_eol_s);
@@ -287,6 +286,18 @@ extern "C" {
     return F_okay;
   }
 #endif // _di_control_print_error_parameter_action_rule_with_unknown_
+
+#ifndef _di_control_print_error_parameter_actions_none_
+  f_status_t control_print_error_parameter_actions_none(fl_print_t * const print) {
+
+    if (!print) return F_status_set_error(F_output_not);
+    if (print->verbosity < f_console_verbosity_error_e) return F_output_not;
+
+    fll_print_format("%[%QNo actions provided.%]%r", print->to, print->set->error, print->prefix, print->set->error, f_string_eol_s);
+
+    return F_okay;
+  }
+#endif // _di_control_print_error_parameter_actions_none_
 
 #ifndef _di_control_print_error_parameter_value_empty_
   f_status_t control_print_error_parameter_value_empty(fl_print_t * const print, const f_string_static_t parameter) {

@@ -50,19 +50,13 @@ extern "C" {
     if (!print || !print->custom) return F_status_set_error(F_output_not);
     if (print->verbosity < f_console_verbosity_normal_e) return F_output_not;
 
-    control_main_t * const main = (control_main_t *) print->custom;
+    control_t * const main = (control_t *) print->custom;
 
     f_file_stream_lock(print->to);
 
     fl_print_format("The action '", print->to);
     fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, control_action_type_name(header.action), print->set->notable);
-
-    if (header.status == F_done) {
-      fl_print_format("' is performed", print->to);
-    }
-    else {
-      fl_print_format("' is successfully performed", print->to);
-    }
+    fl_print_format(header.status == F_done ? "' is performed" : "' is successfully performed", print->to);
 
     if (header.length) {
       fl_print_format(": %/Q%r", print->to, main->cache.large, main->cache.packet_contents.array[main->cache.packet_contents.used - 1].array[0], f_string_eol_s);

@@ -5,7 +5,7 @@ extern "C" {
 #endif
 
 #ifndef _di_control_packet_build_
-  void control_packet_build(control_main_t * const main) {
+  void control_packet_build(control_t * const main) {
 
     if (!main) return;
 
@@ -148,7 +148,7 @@ extern "C" {
 #endif // _di_control_packet_header_length_
 
 #ifndef _di_control_packet_receive_
-  void control_packet_receive(control_main_t * const main, control_payload_header_t * const header) {
+  void control_packet_receive(control_t * const main, control_payload_header_t * const header) {
 
     if (!main || !header) return;
 
@@ -493,7 +493,7 @@ extern "C" {
 #endif // _di_control_packet_receive_
 
 #ifndef _di_control_packet_process_
-  void control_packet_process(control_main_t * const main, control_payload_header_t * const header) {
+  void control_packet_process(control_t * const main, control_payload_header_t * const header) {
 
     if (!main || !header) return;
 
@@ -544,7 +544,7 @@ extern "C" {
 #endif // _di_control_packet_process_
 
 #ifndef _di_control_packet_send_
-  void control_packet_send(control_main_t * const main) {
+  void control_packet_send(control_t * const main) {
 
     if (!main) return;
 
