@@ -29,9 +29,9 @@ extern "C" {
 #endif // _di_control_print_error_file_
 
 #ifndef _di_control_print_error_packet_response_
-  f_status_t control_print_error_packet_response(fl_print_t * const print, const control_payload_header_t header, const f_string_static_t string_status) {
+  f_status_t control_print_error_packet_response(fl_print_t * const print, control_payload_header_t * const header, const f_string_static_t string_status) {
 
-    if (!print || !print->custom) return F_status_set_error(F_output_not);
+    if (!print || !print->custom || !header) return F_status_set_error(F_output_not);
     if (print->verbosity < f_console_verbosity_error_e) return F_output_not;
 
     control_t * const main = (control_t *) print->custom;
@@ -39,13 +39,13 @@ extern "C" {
     f_file_stream_lock(print->to);
 
     fl_print_format("%[%QReceived error response for " CONTROL_action_s " '%]", print->to, print->set->error, print->prefix, print->set->error);
-    fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, control_action_type_name(header.action), print->set->notable);
+    fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, control_action_type_name(header->action), print->set->notable);
     fl_print_format("%[' with status '%]", print->to, print->set->error, print->set->error);
     fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, string_status, print->set->notable);
     fl_print_format("%[' (%]", print->to, print->set->error, print->set->error);
-    fl_print_format(f_string_format_ui_single_s.string, print->to, print->set->notable, header.status, print->set->notable);
+    fl_print_format(f_string_format_ui_single_s.string, print->to, print->set->notable, header->status, print->set->notable);
 
-    if (header.length) {
+    if (header->length) {
       fl_print_format("%[): %/Q%]%r", print->to, print->set->error, print->set->error, main->cache.large, main->cache.packet_contents.array[main->cache.packet_contents.used - 1].array[0], f_string_eol_s);
     }
     else {
@@ -59,9 +59,9 @@ extern "C" {
 #endif // _di_control_print_error_packet_response_
 
 #ifndef _di_control_print_error_packet_response_failure_
-  f_status_t control_print_error_packet_response_failure(fl_print_t * const print, const control_payload_header_t header, const f_string_static_t string_status) {
+  f_status_t control_print_error_packet_response_failure(fl_print_t * const print, control_payload_header_t * const header, const f_string_static_t string_status) {
 
-    if (!print || !print->custom) return F_status_set_error(F_output_not);
+    if (!print || !print->custom || !header) return F_status_set_error(F_output_not);
     if (print->verbosity < f_console_verbosity_error_e) return F_output_not;
 
     control_t * const main = (control_t *) print->custom;
@@ -69,13 +69,13 @@ extern "C" {
     f_file_stream_lock(print->to);
 
     fl_print_format("%[%QThe action '%]", print->to, print->set->error, print->prefix, print->set->error);
-    fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, control_action_type_name(header.action), print->set->notable);
+    fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, control_action_type_name(header->action), print->set->notable);
     fl_print_format("%[' failed with status '%]", print->to, print->set->error, print->set->error);
     fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, string_status, print->set->notable);
     fl_print_format("%[' (%]", print->to, print->set->error, print->set->error);
-    fl_print_format(f_string_format_ui_single_s.string, print->to, print->set->notable, header.status, print->set->notable);
+    fl_print_format(f_string_format_ui_single_s.string, print->to, print->set->notable, header->status, print->set->notable);
 
-    if (header.length) {
+    if (header->length) {
       fl_print_format("%[): %/Q%]%r", print->to, print->set->error, print->set->error, main->cache.large, main->cache.packet_contents.array[main->cache.packet_contents.used - 1].array[0], f_string_eol_s);
     }
     else {
@@ -279,7 +279,7 @@ extern "C" {
 
     fl_print_format("%[' does not know the argument '%]", print->to, print->set->error, print->set->error, f_string_eol_s);
     fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, with, print->set->notable);
-    fl_print_format(f_string_format_sentence_end_quote_s.string, print->to, print->set->error, print->set->error, f_string_eol_s);
+    fl_print_format(f_string_format_sentence_end_single_quote_s.string, print->to, print->set->error, print->set->error, f_string_eol_s);
 
     f_file_stream_unlock(print->to);
 
@@ -381,7 +381,7 @@ extern "C" {
 
     fl_print_format("%[%QFailed to connect to the socket file '%]", print->to, print->set->error, print->prefix, print->set->error);
     fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, path_socket, print->set->notable);
-    fl_print_format(f_string_format_sentence_end_quote_s.string, print->to, print->set->error, print->set->error, f_string_eol_s);
+    fl_print_format(f_string_format_sentence_end_single_quote_s.string, print->to, print->set->error, print->set->error, f_string_eol_s);
 
     f_file_stream_unlock(print->to);
 

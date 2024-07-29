@@ -47,14 +47,10 @@ extern "C" {
 
 /**
  * The program name.
+ *
+ * The implementation for this is defined within the individual programs.
  */
 #ifndef _di_control_program_name_s_
-  #define CONTROL_program_name_s      "control"
-  #define CONTROL_program_name_long_s "Control Program"
-
-  #define CONTROL_program_name_s_length      7
-  #define CONTROL_program_name_long_s_length 15
-
   extern const f_string_static_t control_program_name_s;
   extern const f_string_static_t control_program_name_long_s;
 #endif // _di_control_program_name_s_

@@ -45,9 +45,9 @@ extern "C" {
 #endif // _di_control_print_message_help_
 
 #ifndef _di_control_print_message_packet_response_
-  f_status_t control_print_message_packet_response(fl_print_t * const print, const control_payload_header_t header, const f_string_static_t string_status) {
+  f_status_t control_print_message_packet_response(fl_print_t * const print, control_payload_header_t * const header, const f_string_static_t string_status) {
 
-    if (!print || !print->custom) return F_status_set_error(F_output_not);
+    if (!print || !print->custom || !header) return F_status_set_error(F_output_not);
     if (print->verbosity < f_console_verbosity_normal_e) return F_output_not;
 
     control_t * const main = (control_t *) print->custom;
@@ -55,14 +55,14 @@ extern "C" {
     f_file_stream_lock(print->to);
 
     fl_print_format("The action '", print->to);
-    fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, control_action_type_name(header.action), print->set->notable);
-    fl_print_format(header.status == F_done ? "' is performed" : "' is successfully performed", print->to);
+    fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, control_action_type_name(header->action), print->set->notable);
+    fl_print_format(header->status == F_done ? "' is performed" : "' is successfully performed", print->to);
 
-    if (header.length) {
+    if (header->length) {
       fl_print_format(": %/Q%r", print->to, main->cache.large, main->cache.packet_contents.array[main->cache.packet_contents.used - 1].array[0], f_string_eol_s);
     }
     else {
-      fl_print_format(".%r", print->to, f_string_eol_s);
+      fl_print_format(f_string_format_sentence_end_s.string, print->to, f_string_eol_s);
     }
 
     f_file_stream_unlock(print->to);
@@ -70,6 +70,18 @@ extern "C" {
     return F_okay;
   }
 #endif // _di_control_print_message_packet_response_
+
+#ifndef _di_control_print_message_packet_response_return_
+  f_status_t control_print_message_packet_response_return(fl_print_t * const print, control_payload_header_t * const header, const f_string_static_t string_status) {
+
+    if (!print || !header) return F_status_set_error(F_output_not);
+    if (print->verbosity < f_console_verbosity_normal_e) return F_output_not;
+
+    fll_print_format("Response %q %q %q%r", print->to, control_payload_type_name(header->type), control_action_type_name(header->action), string_status, f_string_eol_s);
+
+    return F_okay;
+  }
+#endif // _di_control_print_message_packet_response_return_
 
 #ifdef __cplusplus
 } // extern "C"

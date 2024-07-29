@@ -510,19 +510,19 @@ extern "C" {
     }
 
     if (main->setting.flag & control_main_flag_return_e) {
-      fll_print_format("response %q %q %q%r", main->program.output.to, control_payload_type_name(header->type), control_action_type_name(header->action), string_status, f_string_eol_s);
+      control_print_message_packet_response_return(&main->program.output, header, string_status);
     }
     else if (header->type == control_payload_type_error_e) {
-      control_print_error_packet_response(&main->program.error, *header, string_status);
+      control_print_error_packet_response(&main->program.error, header, string_status);
     }
     else if (header->status == F_failure) {
-      control_print_error_packet_response_failure(&main->program.error, *header, string_status);
+      control_print_error_packet_response_failure(&main->program.error, header, string_status);
     }
     else if (header->status == F_busy) {
-      control_print_warning_packet_response_busy(&main->program.warning, *header, string_status);
+      control_print_warning_packet_response_busy(&main->program.warning, header, string_status);
     }
     else if (header->status == F_done || header->status == F_success) {
-      control_print_message_packet_response(&main->program.output, *header, string_status);
+      control_print_message_packet_response(&main->program.output, header, string_status);
     }
     else {
 

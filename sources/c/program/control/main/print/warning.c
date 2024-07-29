@@ -34,7 +34,7 @@ extern "C" {
     fl_print_format(f_string_format_ui_single_s.string, print->to, print->set->notable, status_of, print->set->notable);
     fl_print_format("%[, failing with status code%] ", print->to, print->set->warning, status_error, print->set->warning);
     fl_print_format(f_string_format_ui_single_s.string, print->to, print->set->notable, status_error, print->set->notable);
-    fl_print_format(f_string_format_sentence_end_s.string, print->to, print->set->warning, print->set->warning, f_string_eol_s);
+    fl_print_format(f_string_format_sentence_end_single_s.string, print->to, print->set->warning, print->set->warning, f_string_eol_s);
 
     f_file_stream_unlock(print->to);
 
@@ -43,15 +43,15 @@ extern "C" {
 #endif // _di_control_print_warning_packet_process_string_to_failed_
 
 #ifndef _di_control_print_warning_packet_response_busy_
-  f_status_t control_print_warning_packet_response_busy(fl_print_t * const print, const control_payload_header_t header, const f_string_static_t string_status) {
+  f_status_t control_print_warning_packet_response_busy(fl_print_t * const print, control_payload_header_t * const header, const f_string_static_t string_status) {
 
-    if (!print) return F_status_set_error(F_output_not);
+    if (!print || !header) return F_status_set_error(F_output_not);
     if (print->verbosity < f_console_verbosity_verbose_e) return F_output_not;
 
     f_file_stream_lock(print->to);
 
     fl_print_format("%[%QThe action '%]", print->to, print->set->warning, print->prefix, print->set->warning);
-    fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, control_action_type_name(header.action), print->set->notable);
+    fl_print_format(f_string_format_Q_single_s.string, print->to, print->set->notable, control_action_type_name(header->action), print->set->notable);
     fl_print_format("%[' could not be performed because the service is busy.%]%r", print->to, print->set->warning, print->set->warning, f_string_eol_s);
 
     f_file_stream_unlock(print->to);

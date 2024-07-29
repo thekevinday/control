@@ -9,6 +9,7 @@ f_utf
 f_color
 f_compare
 f_console
+f_conversion
 f_file
 f_fss
 f_parse
@@ -21,11 +22,12 @@ f_socket
 f_status_string
 f_thread
 
+fl_conversion
 fl_fss
 fl_print
+fl_status_string
 
 fll_error
 fll_fss
 fll_print
 fll_program
-fll_status_string

@@ -25,6 +25,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param response_header
  *   The repeated response header.
  *
@@ -46,6 +48,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param status_of
  *   The status code to be translating to a string.
  * @param status_error
@@ -70,8 +74,12 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param header
  *   The control payload packet header data.
+ *
+ *   Must not be NULL.
  * @param status
  *   A string representing the name of the status code from header.status.
  *
@@ -82,7 +90,7 @@ extern "C" {
  *   F_output_not (with error bit) if setting is NULL.
  */
 #ifndef _di_control_print_warning_packet_response_busy_
-  extern f_status_t control_print_warning_packet_response_busy(fl_print_t * const print, const control_payload_header_t header, const f_string_static_t string_status);
+  extern f_status_t control_print_warning_packet_response_busy(fl_print_t * const print, control_payload_header_t * const header, const f_string_static_t string_status);
 #endif // _di_control_print_warning_packet_response_busy_
 
 #ifdef __cplusplus

@@ -25,8 +25,6 @@ int main(const int argc, const f_string_t *argv, const f_string_t *envp) {
     data.program.pipe = fll_program_data_pipe_input_e;
   }
 
-  data.setting.flag |= control_main_flag_interruptible_e;
-
   data.setting.socket.domain = f_socket_protocol_family_local_e;
   data.setting.socket.type = f_socket_type_stream_e;
   data.setting.socket.length = sizeof(struct sockaddr_un);

@@ -23,6 +23,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param function
  *   The name of the function associated with the error.
  *
@@ -45,6 +47,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param function
  *   The name of the function where the error happened.
  *   Set to 0 to disable.
@@ -74,6 +78,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param header
  *   The control payload packet header data.
  * @param status
@@ -86,7 +92,7 @@ extern "C" {
  *   F_output_not (with error bit) if setting is NULL.
  */
 #ifndef _di_control_print_error_packet_response_
-  extern f_status_t control_print_error_packet_response(fl_print_t * const print, const control_payload_header_t header, const f_string_static_t status);
+  extern f_status_t control_print_error_packet_response(fl_print_t * const print, control_payload_header_t * const header, const f_string_static_t status);
 #endif // _di_control_print_error_packet_response_
 
 /**
@@ -96,8 +102,12 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param header
  *   The control payload packet header data.
+ *
+ *   Must not be NULL.
  * @param status
  *   A string representing the name of the status code from header.status.
  *
@@ -108,7 +118,7 @@ extern "C" {
  *   F_output_not (with error bit) if setting is NULL.
  */
 #ifndef _di_control_print_error_packet_response_failure_
-  extern f_status_t control_print_error_packet_response_failure(fl_print_t * const print, const control_payload_header_t header, const f_string_static_t string_status);
+  extern f_status_t control_print_error_packet_response_failure(fl_print_t * const print, control_payload_header_t * const header, const f_string_static_t string_status);
 #endif // _di_control_print_error_packet_response_failure_
 
 
@@ -121,6 +131,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  *
  * @return
  *   F_okay on success.
@@ -139,6 +151,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param action
  *   The parameter representing an action.
  *
@@ -159,6 +173,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param action
  *   The parameter representing an action.
  *
@@ -179,6 +195,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param action
  *   The parameter representing an action.
  *
@@ -199,6 +217,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param action
  *   The parameter representing an action.
  *
@@ -219,6 +239,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param action
  *   The parameter representing an action.
  *
@@ -239,6 +261,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param action
  *   The parameter representing an action.
  *
@@ -259,6 +283,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param action
  *   The parameter representing an action.
  * @param with
@@ -281,6 +307,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param action
  *   The parameter representing an action.
  *
@@ -301,6 +329,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param action
  *   The parameter representing an action.
  * @param with
@@ -322,6 +352,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param action
  *   The parameter representing an action.
  * @param with
@@ -345,6 +377,8 @@ extern "C" {
  *
  *   This does not alter print.custom.setting.state.status.
  *
+ *   Must not be NULL.
+ *
  * @return
  *   F_okay on success.
  *   F_output_not on success, but no printing is performed.
@@ -362,6 +396,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param parameter
  *   The parameter name.
  *
@@ -382,6 +418,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param parameter
  *   The parameter name.
  *
@@ -403,6 +441,8 @@ extern "C" {
  *
  *   This does not alter print.custom.setting.state.status.
  *
+ *   Must not be NULL.
+ *
  * @return
  *   F_okay on success.
  *   F_output_not on success, but no printing is performed.
@@ -420,6 +460,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  *
  * @return
  *   F_okay on success.
@@ -439,6 +481,8 @@ extern "C" {
  *
  *   This does not alter print.custom.setting.state.status.
  *
+ *   Must not be NULL.
+ *
  * @return
  *   F_okay on success.
  *   F_output_not on success, but no printing is performed.
@@ -456,6 +500,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param path_socket
  *   The socket file path.
  *
@@ -476,6 +522,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param path_socket
  *   The socket file path.
  *
@@ -496,6 +544,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param path_socket
  *   The socket file path.
  *

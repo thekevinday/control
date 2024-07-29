@@ -23,6 +23,8 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param object
  *   The object string.
  * @param content
@@ -47,19 +49,24 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param message
  *   The message to print.
  *
  *   A single "%[" followed by a single "%]" is supported in the message and is replaced with "notable" context.
  * @param buffer
  *   (optional) An additonal message to print (this is syntax highlighted).
+ *
  *   Set to NULL to not use.
  * @param range
  *   (optional) The range within the buffer to print rather than printing the entire buffer.
- *   Set to NULL to not use.
  *   This is ignored when buffer is NULL.
+ *
+ *   Set to NULL to not use.
  * @param status
  *   (optional) A status code that triggered the failure (this is syntax highlighted).
+ *
  *   Set to NULL to not use.
  *
  * @return

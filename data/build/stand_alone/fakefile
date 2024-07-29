@@ -1,4 +1,15 @@
 # fss-0005 iki-0002
+#
+# See the dependencies file for details on the FLL packages that are needed.
+#
+# The data/build/stand_alone/config.h should be copied to sources/c/config.h.
+#
+# This requires that the sources structure to be changed.
+# The monolithic sources from within the 'fll-0.7.0/source/c/' directory must be copied over into the sources directory under the directory 'sources/c/fll/'.
+#
+# This can be built via:
+#   fake -U build/stand_alone/ clean make
+#
 
 settings:
   fail exit
@@ -8,12 +19,10 @@ settings:
   environment LANG LC_ALL LC_COLLATE LC_CTYPE LC_FASTMSG LC_MESSAGES LC_MONETARY LC_NUMERIC LC_TIME LOCPATH NLSPATH
 
 main:
-  build settings
   build settings.control
 
 install:
-  shell ./install.sh parameter:'work' parameter:'verbosity' parameter:'color'
-  shell ./install.sh parameter:'work' parameter:'verbosity' parameter:'color' -s data/build/settings.control
+  shell ./install.sh parameter:'work' parameter:'verbosity' parameter:'color' -s data/build/stand_alone/settings.control
 
 help:
   print

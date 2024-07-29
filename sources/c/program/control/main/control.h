@@ -62,6 +62,7 @@
 #include <program/control/main/action.h>
 #include <program/control/main/packet.h>
 #include <program/control/main/payload.h>
+#include <program/control/main/process.h>
 #include <program/control/main/signal.h>
 #include <program/control/main/thread.h>
 

@@ -24,6 +24,8 @@ extern "C" {
  *
  *   This does not alter print.custom.setting.state.status.
  *
+ *   Must not be NULL.
+ *
  * @return
  *   F_okay on success.
  *   F_output_not on success, but no printing is performed.
@@ -41,8 +43,12 @@ extern "C" {
  *   The output structure to print to.
  *
  *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
  * @param header
  *   The control payload packet header data.
+ *
+ *   Must not be NULL.
  * @param status
  *   A string representing the name of the status code from header.status.
  *
@@ -53,8 +59,34 @@ extern "C" {
  *   F_output_not (with error bit) if setting is NULL.
  */
 #ifndef _di_control_print_message_packet_response_
-  extern f_status_t control_print_message_packet_response(fl_print_t * const print, const control_payload_header_t header, const f_string_static_t string_status);
+  extern f_status_t control_print_message_packet_response(fl_print_t * const print, control_payload_header_t * const header, const f_string_static_t string_status);
 #endif // _di_control_print_message_packet_response_
+
+/**
+ * Print a message about a packet response when the return flag is set.
+ *
+ * @param print
+ *   The output structure to print to.
+ *
+ *   This does not alter print.custom.setting.state.status.
+ *
+ *   Must not be NULL.
+ * @param header
+ *   The control payload packet header data.
+ *
+ *   Must not be NULL.
+ * @param status
+ *   A string representing the name of the status code from header.status.
+ *
+ * @return
+ *   F_okay on success.
+ *   F_output_not on success, but no printing is performed.
+ *
+ *   F_output_not (with error bit) if setting is NULL.
+ */
+#ifndef _di_control_print_message_packet_response_return_
+  extern f_status_t control_print_message_packet_response_return(fl_print_t * const print, control_payload_header_t * const header, const f_string_static_t string_status);
+#endif // _di_control_print_message_packet_response_return_
 
 #ifdef __cplusplus
 } // extern "C"

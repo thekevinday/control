@@ -31,14 +31,14 @@ extern "C" {
 
     f_file_stream_lock(print->to);
 
-    fl_print_format("%s", print->to, message);
+    fl_print_format(f_string_format_s_single_s.string, print->to, message);
 
     if (buffer) {
       if (range) {
         fl_print_format("'%[%/Q%]'", print->to, print->set->notable, *buffer, *range, print->set->notable);
       }
       else {
-        fl_print_format("'%[%/Q%]'", print->to, print->set->notable, *buffer, print->set->notable);
+        fl_print_format("'%[%Q%]'", print->to, print->set->notable, *buffer, print->set->notable);
       }
     }
 
@@ -46,7 +46,7 @@ extern "C" {
       fl_print_format(", with status code %[%ui%]'", print->to, print->set->notable, main->setting.state.status, print->set->notable);
     }
 
-    fl_print_format(".%r", print->to, f_string_eol_s);
+    fl_print_format(f_string_format_sentence_end_s.string, print->to, f_string_eol_s);
 
     f_file_stream_unlock(print->to);
 
