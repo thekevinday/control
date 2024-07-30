@@ -62,6 +62,28 @@ extern "C" {
   }; // enum
 #endif // _di_control_f_e_
 
+/**
+ * An enum representing specific debug messages.
+ */
+#ifndef _di_control_print_debug_message_e_
+  enum {
+    control_print_debug_message_failure_identify_action_e,
+    control_print_debug_message_failure_reading_fss_extended_response_e,
+    control_print_debug_message_failure_reading_fss_basic_list_response_e,
+    control_print_debug_message_failure_process_delimits_fss_basic_list_response_e,
+    control_print_debug_message_failure_process_number_exceeds_response_e,
+    control_print_debug_message_failure_process_number_response_e,
+    control_print_debug_message_failure_process_status_response_e,
+    control_print_debug_message_invalid_payload_last_not_e,
+    control_print_debug_message_multiple_fss_header_response_e,
+    control_print_debug_message_multiple_fss_payload_response_e,
+    control_print_debug_message_missing_fss_header_response_e,
+    control_print_debug_message_missing_fss_payload_response_e,
+    control_print_debug_message_missing_header_content_e,
+    control_print_debug_message_unknown_type_response_e,
+  }; // enum
+#endif // _di_control_print_debug_message_e_
+
 #ifdef __cplusplus
 } // extern "C"
 #endif

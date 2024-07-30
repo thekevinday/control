@@ -225,11 +225,11 @@ extern "C" {
       fll_fss_basic_list_read(main->cache.large, &range_packet, &main->cache.packet_objects, &main->cache.packet_contents, &main->cache.delimits, 0, 0, &state);
 
       if (F_status_is_error(main->setting.state.status)) {
-        control_print_debug_packet_message(&main->program.debug, "Failure while reading FSS Basic List in the response packet", 0, 0);
+        if (F_status_set_fine(main->setting.state.status) != F_memory_not) {
+          main->setting.state.status = F_status_set_error(F_header);
+        }
 
-        if (F_status_set_fine(main->setting.state.status) == F_memory_not) return;
-
-        main->setting.state.status = F_status_set_error(F_header);
+        control_print_debug_packet_message_of(&main->program.debug, control_print_debug_message_failure_reading_fss_basic_list_response_e, 0, 0);
 
         return;
       }
@@ -237,11 +237,9 @@ extern "C" {
       f_fss_apply_delimit(main->cache.delimits, &main->cache.large, &state);
 
       if (F_status_is_error(state.status)) {
-        main->setting.state.status = state.status;
-
-        control_print_debug_packet_message(&main->program.debug, "Failure while processing delimits for the FSS Basic List in the response packet", 0, 0);
-
         main->setting.state.status = F_status_set_error(F_header);
+
+        control_print_debug_packet_message_of(&main->program.debug, control_print_debug_message_failure_process_delimits_fss_basic_list_response_e, 0, 0);
 
         return;
       }
@@ -258,9 +256,9 @@ extern "C" {
 
             // The FSS-000E (Payload) standard does not prohibit multiple "header", but such cases are not supported by the controller and the control programs.
             if (content_header) {
-              control_print_debug_packet_message(&main->program.debug, "Multiple %[" F_fss_header_s "%] found in response packet", 0, 0);
-
               main->setting.state.status = F_status_set_error(F_payload_not);
+
+              control_print_debug_packet_message_of(&main->program.debug, control_print_debug_message_multiple_fss_header_response_e, 0, 0);
 
               return;
             }
@@ -271,17 +269,17 @@ extern "C" {
 
             // Only a single "payload" is supported by the FSS-000E (Payload) standard.
             if (content_payload) {
-              control_print_debug_packet_message(&main->program.debug, "Multiple %[" F_fss_payload_s "%] found in response packet", 0, 0);
-
               main->setting.state.status = F_status_set_error(F_payload_not);
+
+              control_print_debug_packet_message_of(&main->program.debug, control_print_debug_message_multiple_fss_payload_response_e, 0, 0);
 
               return;
             }
 
             if (i + 1 < main->cache.packet_contents.used) {
-              control_print_debug_packet_message(&main->program.debug, "Invalid FSS Payload format, the %[" F_fss_payload_s "%] is required to be the last FSS Basic List Object", 0, 0);
-
               main->setting.state.status = F_status_set_error(F_payload_not);
+
+              control_print_debug_packet_message_of(&main->program.debug, control_print_debug_message_invalid_payload_last_not_e, 0, 0);
 
               return;
             }
@@ -291,17 +289,17 @@ extern "C" {
         } // for
 
         if (!content_header) {
-          control_print_debug_packet_message(&main->program.debug, "Did not find a %[" F_fss_header_s "%] in the response packet", 0, 0);
-
           main->setting.state.status = F_status_set_error(F_payload_not);
+
+          control_print_debug_packet_message_of(&main->program.debug, control_print_debug_message_missing_fss_header_response_e, 0, 0);
 
           return;
         }
 
         if (!content_payload) {
-          control_print_debug_packet_message(&main->program.debug, "Did not find a %[" F_fss_payload_s "%] in the response packet", 0, 0);
-
           main->setting.state.status = F_status_set_error(F_payload_not);
+
+          control_print_debug_packet_message_of(&main->program.debug, control_print_debug_message_missing_fss_payload_response_e, 0, 0);
 
           return;
         }
@@ -318,11 +316,11 @@ extern "C" {
         fll_fss_extended_read(main->cache.large, &range, &main->cache.header_objects, &main->cache.header_contents, 0, 0, &main->cache.delimits, 0, &state);
 
         if (F_status_is_error(main->setting.state.status)) {
-          control_print_debug_packet_message(&main->program.debug, "Failure while reading FSS Extended in the response packet", 0, 0);
+          if (F_status_set_fine(main->setting.state.status) != F_memory_not) {
+            main->setting.state.status = F_status_set_error(F_header_not);
+          }
 
-          if (F_status_set_fine(main->setting.state.status) == F_memory_not) return;
-
-          main->setting.state.status = F_status_set_error(F_header_not);
+          control_print_debug_packet_message_of(&main->program.debug, control_print_debug_message_failure_reading_fss_extended_response_e, 0, 0);
 
           return;
         }
@@ -330,19 +328,17 @@ extern "C" {
         f_fss_apply_delimit(main->cache.delimits, &main->cache.large, &state);
 
         if (F_status_is_error(state.status)) {
-          main->setting.state.status = state.status;
-
-          control_print_debug_packet_message(&main->program.debug, "Failure while processing delimits for the FSS Basic List in the response packet", 0, 0);
-
           main->setting.state.status = F_status_set_error(F_header_not);
+
+          control_print_debug_packet_message_of(&main->program.debug, control_print_debug_message_failure_process_delimits_fss_basic_list_response_e, 0, 0);
 
           return;
         }
 
         if (!main->cache.header_contents.used) {
-          control_print_debug_packet_message(&main->program.debug, "Did not find any Content within the %[" F_fss_header_s "%]", 0, 0);
-
           main->setting.state.status = F_status_set_error(F_header_not);
+
+          control_print_debug_packet_message_of(&main->program.debug, control_print_debug_message_missing_header_content_e, 0, 0);
 
           return;
         }
@@ -365,9 +361,9 @@ extern "C" {
               header->action = control_action_type_identify(action);
 
               if (!header->action) {
-                control_print_debug_packet_message(&main->program.debug, "Failed to identify %[" CONTROL_action_s "%] from: ", &main->cache.large, &main->cache.header_contents.array[i].array[0]);
-
                 main->setting.state.status = F_status_set_error(F_header_not);
+
+                control_print_debug_packet_message_of(&main->program.debug, control_print_debug_message_failure_identify_action_e, &main->cache.large, &main->cache.header_contents.array[i].array[0]);
 
                 return;
               }
@@ -386,15 +382,15 @@ extern "C" {
               main->setting.state.status = fl_conversion_dynamic_partial_to_unsigned_detect(fl_conversion_data_base_10_c, main->cache.large, main->cache.header_contents.array[i].array[0], &number);
 
               if (F_status_is_error(main->setting.state.status)) {
-                control_print_debug_packet_message(&main->program.debug, "Failed to process number for %[" CONTROL_length_s "%] in the response packet, number is:", &main->cache.large, &main->cache.header_contents.array[i].array[0]);
-
                 main->setting.state.status = F_status_set_error(F_header_not);
+
+                control_print_debug_packet_message_of(&main->program.debug, control_print_debug_message_failure_process_number_response_e, &main->cache.large, &main->cache.header_contents.array[i].array[0]);
 
                 return;
               }
 
               if (number > F_type_size_max_32_unsigned_d) {
-                control_print_debug_packet_message(&main->program.debug, "Processed number for %[" CONTROL_length_s "%] exceeds allowed size in the response packet, number is:", &main->cache.large, &main->cache.header_contents.array[i].array[0]);
+                control_print_debug_packet_message_of(&main->program.debug, control_print_debug_message_failure_process_number_exceeds_response_e, &main->cache.large, &main->cache.header_contents.array[i].array[0]);
 
                 main->setting.state.status = F_status_set_error(F_header_not);
 
@@ -430,7 +426,7 @@ extern "C" {
                 main->setting.state.status = fl_status_string_from(name, &header->status);
 
                 if (F_status_is_error(main->setting.state.status)) {
-                  control_print_debug_packet_message(&main->program.debug, "Failed to process %[" CONTROL_status_s "%] in the response packet, Content is:", &main->cache.large, &main->cache.header_contents.array[i].array[0]);
+                  control_print_debug_packet_message_of(&main->program.debug, control_print_debug_message_failure_process_status_response_e, &main->cache.large, &main->cache.header_contents.array[i].array[0]);
 
                   main->setting.state.status = F_status_set_error(F_header_not);
 
@@ -438,7 +434,7 @@ extern "C" {
                 }
               }
               else if (F_status_is_error(main->setting.state.status)) {
-                control_print_debug_packet_message(&main->program.debug, "Failed to process number for %[" CONTROL_status_s "%] in the response packet, number is:", &main->cache.large, &main->cache.header_contents.array[i].array[0]);
+                control_print_debug_packet_message_of(&main->program.debug, control_print_debug_message_failure_process_number_response_e, &main->cache.large, &main->cache.header_contents.array[i].array[0]);
 
                 if (F_status_set_fine(main->setting.state.status) == F_memory_not) return;
 
@@ -448,7 +444,7 @@ extern "C" {
               }
               else {
                 if (number > F_status_size_max_with_bits_d) {
-                  control_print_debug_packet_message(&main->program.debug, "Processed number for %[" CONTROL_status_s "%] exceeds allowed size in the response packet, number is:", &main->cache.large, &main->cache.header_contents.array[i].array[0]);
+                  control_print_debug_packet_message_of(&main->program.debug, control_print_debug_message_failure_process_number_exceeds_response_e, &main->cache.large, &main->cache.header_contents.array[i].array[0]);
 
                   main->setting.state.status = F_status_set_error(F_header_not);
 
@@ -473,7 +469,7 @@ extern "C" {
                 header->type = control_payload_type_error_e;
               }
               else {
-                control_print_debug_packet_message(&main->program.debug, "Unknown %[" CONTROL_type_s "%] in response packet, Content is:", &main->cache.large, &main->cache.header_contents.array[i].array[0]);
+                control_print_debug_packet_message_of(&main->program.debug, control_print_debug_message_unknown_type_response_e, &main->cache.large, &main->cache.header_contents.array[i].array[0]);
 
                 main->setting.state.status = F_status_set_error(F_header_not);
 
