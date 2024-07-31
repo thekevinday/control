@@ -11,21 +11,21 @@ extern "C" {
 
     main->setting.state.status = F_okay;
 
-    if (main->setting.flag & control_main_flag_version_copyright_help_e) {
-      if (main->setting.flag & control_main_flag_help_e) {
+    if (main->setting.flag & control_main_flag_version_copyright_help_d) {
+      if (main->setting.flag & control_main_flag_help_d) {
         control_print_message_help(&main->program.message);
       }
       else if (main->setting.flag & control_main_flag_version_e) {
         fll_program_print_version(&main->program.message, control_program_version_s);
       }
-      else if (main->setting.flag & control_main_flag_copyright_e) {
+      else if (main->setting.flag & control_main_flag_copyright_d) {
         fll_program_print_copyright(&main->program.message, fll_program_copyright_year_author_s);
       }
 
       return;
     }
 
-    if (main->setting.flag & control_main_flag_pipe_e) {
+    if (main->setting.flag & control_main_flag_pipe_d) {
       control_print_error_pipe_supported_not(&main->program.error);
 
       main->setting.state.status = F_status_set_error(F_support_not);

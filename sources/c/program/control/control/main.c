@@ -4,11 +4,11 @@ int main(const int argc, const f_string_t *argv, const f_string_t *envp) {
 
   control_t data = control_t_initialize;
 
-  data.program.debug.flag |= control_print_flag_debug_e | control_print_flag_out_e;
-  data.program.error.flag |= control_print_flag_error_e | control_print_flag_out_e;
-  data.program.output.flag |= control_print_flag_out_e;
-  data.program.message.flag |= control_print_flag_message_e | control_print_flag_out_e;
-  data.program.warning.flag |= control_print_flag_warning_e | control_print_flag_out_e;
+  data.program.debug.flag |= control_print_flag_debug_d | control_print_flag_out_d;
+  data.program.error.flag |= control_print_flag_error_d | control_print_flag_out_d;
+  data.program.output.flag |= control_print_flag_out_d;
+  data.program.message.flag |= control_print_flag_message_d | control_print_flag_out_d;
+  data.program.warning.flag |= control_print_flag_warning_d | control_print_flag_out_d;
   data.program.error.custom = (void *) &data;
   data.program.debug.custom = (void *) &data;
   data.program.message.custom = (void *) &data;

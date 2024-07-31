@@ -505,7 +505,7 @@ extern "C" {
       }
     }
 
-    if (main->setting.flag & control_main_flag_return_e) {
+    if (main->setting.flag & control_main_flag_return_d) {
       control_print_message_packet_response_return(&main->program.output, header, string_status);
     }
     else if (header->type == control_payload_type_error_e) {

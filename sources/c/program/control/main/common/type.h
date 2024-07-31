@@ -136,7 +136,7 @@ extern "C" {
 
   #define control_setting_t_initialize \
     { \
-      control_main_flag_none_e, \
+      control_main_flag_none_d, \
       0, \
       0, \
       F_okay, \

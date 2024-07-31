@@ -55,31 +55,6 @@ extern "C" {
 #endif // _di_control_action_type_e_
 
 /**
- * Flags passed to the main function or program.
- *
- * control_main_flag_*_e:
- *   - none:                   No flags set.
- *   - copyright:              Print copyright.
- *   - header:                 Enable printing of headers.
- *   - help:                   Print help.
- *   - pipe:                   Use the input pipe.
- *   - return:                 Print a message about the response packet.
- *   - version:                Print version.
- *   - version_copyright_help: A helper flag representing version, copyright, and help flag bits being set.
- */
-#ifndef _di_control_main_flag_e_
-  enum {
-    control_main_flag_none_e                   = 0x0,
-    control_main_flag_copyright_e              = 0x1,
-    control_main_flag_help_e                   = 0x2,
-    control_main_flag_pipe_e                   = 0x4,
-    control_main_flag_return_e                 = 0x8,
-    control_main_flag_version_e                = 0x10,
-    control_main_flag_version_copyright_help_e = 0x13,
-  }; // enum
-#endif // _di_control_main_flag_e_
-
-/**
  * Supported payload types.
  *
  * control_payload_type_*_e:
@@ -118,31 +93,6 @@ extern "C" {
 
   #define control_parameter_total_d (f_console_parameter_state_type_total_d + 4)
 #endif // _di_control_parameter_e_
-
-/**
- * Flags for fine-tuned print control.
- *
- * control_print_flag_*_e:
- *   - none:    No flags set.
- *   - debug:   Stream is for debug printing.
- *   - error:   Stream is for error printing.
- *   - in:      Stream is a source file.
- *   - message: Stream is for message printing.
- *   - out:     Stream is a destination file.
- *   - warning: Stream is for warning printing.
- */
-#ifndef _di_control_print_flag_e_
-  enum {
-    control_print_flag_none_e    = 0x0,
-    control_print_flag_debug_e   = 0x1,
-    control_print_flag_error_e   = 0x2,
-    control_print_flag_file_e    = 0x4,
-    control_print_flag_in_e      = 0x8,
-    control_print_flag_out_e     = 0x10,
-    control_print_flag_message_e = 0x20,
-    control_print_flag_warning_e = 0x40,
-  }; // enum
-#endif // _di_control_print_flag_e_
 
 #ifdef __cplusplus
 } // extern "C"

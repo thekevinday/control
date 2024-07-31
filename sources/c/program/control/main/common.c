@@ -38,7 +38,7 @@ extern "C" {
     }
 
     if (main->program.parameters.array[f_console_standard_parameter_help_e].result & f_console_result_found_e) {
-      main->setting.flag |= control_main_flag_help_e;
+      main->setting.flag |= control_main_flag_help_d;
 
       return;
     }
@@ -50,13 +50,13 @@ extern "C" {
     }
 
     if (main->program.parameters.array[f_console_standard_parameter_copyright_e].result & f_console_result_found_e) {
-      main->setting.flag |= control_main_flag_copyright_e;
+      main->setting.flag |= control_main_flag_copyright_d;
 
       return;
     }
 
     if (main->program.parameters.array[control_parameter_return_e].result & f_console_result_found_e) {
-      main->setting.flag |= control_main_flag_return_e;
+      main->setting.flag |= control_main_flag_return_d;
 
       return;
     }
@@ -64,10 +64,10 @@ extern "C" {
     f_number_unsigned_t index = 0;
 
     if (main->program.pipe & fll_program_data_pipe_input_e) {
-      main->setting.flag |= control_main_flag_pipe_e;
+      main->setting.flag |= control_main_flag_pipe_d;
     }
     else {
-      main->setting.flag &= ~control_main_flag_pipe_e;
+      main->setting.flag &= ~control_main_flag_pipe_d;
     }
 
     // The settings path is statically allocated.

@@ -45,6 +45,29 @@ extern "C" {
 #endif // _di_control_default_d_
 
 /**
+ * Flags passed to the main function or program.
+ *
+ * control_main_flag_*_d:
+ *   - none:                   No flags set.
+ *   - copyright:              Print copyright.
+ *   - header:                 Enable printing of headers.
+ *   - help:                   Print help.
+ *   - pipe:                   Use the input pipe.
+ *   - return:                 Print a message about the response packet.
+ *   - version:                Print version.
+ *   - version_copyright_help: A helper flag representing version, copyright, and help flag bits being set.
+ */
+#ifndef _di_control_main_flag_d_
+  #define control_main_flag_none_d                   0x0
+  #define control_main_flag_copyright_d              0x1
+  #define control_main_flag_help_d                   0x2
+  #define control_main_flag_pipe_d                   0x4
+  #define control_main_flag_return_d                 0x8
+  #define control_main_flag_version_e                0x10
+  #define control_main_flag_version_copyright_help_d 0x13
+#endif // _di_control_main_flag_d_
+
+/**
  * A codes repesent different flags associated with a packet.
  *
  * control_packet_flag_*_d:
@@ -55,6 +78,29 @@ extern "C" {
   #define control_packet_flag_binary_d     0x80
   #define control_packet_flag_endian_big_d 0x40
 #endif // _di_control_packet_flag_d_
+
+/**
+ * Flags for fine-tuned print control.
+ *
+ * control_print_flag_*_d:
+ *   - none:    No flags set.
+ *   - debug:   Stream is for debug printing.
+ *   - error:   Stream is for error printing.
+ *   - in:      Stream is a source file.
+ *   - message: Stream is for message printing.
+ *   - out:     Stream is a destination file.
+ *   - warning: Stream is for warning printing.
+ */
+#ifndef _di_control_print_flag_d_
+  #define control_print_flag_none_d    0x0
+  #define control_print_flag_debug_d   0x1
+  #define control_print_flag_error_d   0x2
+  #define control_print_flag_file_d    0x4
+  #define control_print_flag_in_d      0x8
+  #define control_print_flag_out_d     0x10
+  #define control_print_flag_message_d 0x20
+  #define control_print_flag_warning_d 0x40
+#endif // _di_control_print_flag_d_
 
 /**
  * The program signal defines.
