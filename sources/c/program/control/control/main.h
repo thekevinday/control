@@ -8,8 +8,8 @@
  * This file is only ever included by program/control/control/main.c and should not normally be included anywhere else.
  * Anything that wants to include this should be providing the "control" program functionality in some manner.
  */
-#ifndef _control_control_h
-#define _control_control_h
+#ifndef _control_control_main_h
+#define _control_control_main_h
 
 #ifdef __cplusplus
 extern "C" {
@@ -35,4 +35,4 @@ extern int main(const int argc, const f_string_t *argv, const f_string_t *envp);
 } // extern "C"
 #endif
 
-#endif // _control_control_h
+#endif // _control_control_main_h

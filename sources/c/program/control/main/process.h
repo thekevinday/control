@@ -9,8 +9,8 @@
  *
  * This is auto-included and should not need to be explicitly included.
  */
-#ifndef _control_process_h
-#define _control_process_h
+#ifndef _control_main_process_h
+#define _control_main_process_h
 
 #ifdef __cplusplus
 extern "C" {
@@ -46,4 +46,4 @@ extern "C" {
 } // extern "C"
 #endif
 
-#endif // _control_process_h
+#endif // _control_main_process_h
