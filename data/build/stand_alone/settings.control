@@ -6,16 +6,18 @@
 #   fake -s data/build/stand_alone/settings.control clean build
 #
 # Modes:
-#   - clang:       Use clang rather than the default, which is generally GCC.
-#   - coverage:    Compile for building coverage.
-#   - fanalyzer:   Compile using GCC's -fanalyzer compile time option.
-#   - gcc:         Use GCC specific settings.
-#   - test:        Compile for a test, such as unit testing.
-#   - thread:      Compile with thread support.
-#   - threadless:  Compile without thread support.
+#   - clang:      Use Clang rather than the default, which is generally GCC.
+#   - coverage:   Compile for building coverage.
+#   - fanalyzer:  Compile using GCC's -fanalyzer compile time option.
+#   - gcc:        Use GCC specific settings.
+#   - gcc_13:     Use GCC version 13 or greater specific settings.
+#   - test:       Compile for a test, such as unit testing.
+#   - thread:     Compile with thread support.
+#   - threadless: Compile without thread support.
 #
 
 build_name control
+stage stand_alone
 
 version_major 0
 version_minor 7
@@ -23,7 +25,7 @@ version_micro 0
 version_file micro
 version_target minor
 
-modes clang coverage fanalyzer gcc test thread threadless
+modes clang coverage fanalyzer gcc gcc_13 test thread threadless
 modes_default thread gcc
 
 build_compiler gcc
